@@ -6,6 +6,10 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 config = dotenv_values("./config/.env")
 API_TOKEN = config["API_TOKEN"]
 ADMIN = config["ADMIN"]
+USER = config["USER"]
+PASSWORD = config["PASSWORD"]
+DB = config["DATABASE"]
+HOST = config["HOST"]
 
 logging.basicConfig(level=logging.INFO)
 
