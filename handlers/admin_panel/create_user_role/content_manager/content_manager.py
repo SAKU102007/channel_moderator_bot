@@ -22,9 +22,24 @@ async def load_user_role_content_manager(callback_query: types.CallbackQuery):
 async def load_user_id(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['user_id'] = message.text
+        str_user_id = data['user_id']
 
-    await state.finish()
-    await bot.delete_message(message.from_user.id, message_id=message.message_id)
-    await bot.send_message(message.from_user.id,
-                           f'Контент менеджер с ID {data["user_id"]} успешно добавлен',
-                           reply_markup=admin_panel_keyboard_back_to_main_menu)
+        try:
+            int_user_id = int(str_user_id)
+
+            if int_user_id < 0:
+                await state.finish()
+                await bot.send_message(message.from_user.id, f'Отрицательный ID пользователя недопустим!\n'
+                                                             f'Вы ввели следующий ID: {str_user_id}\n'
+                                                             f'Попробуйте еще раз',
+                                       reply_markup=admin_panel_keyboard_back_to_main_menu)
+            else:
+                await state.finish()
+                await bot.send_message(message.from_user.id, f'Контент менеджер с ID {str_user_id} успешно добавен',
+                                       reply_markup = admin_panel_keyboard_back_to_main_menu)
+        except ValueError:
+            await state.finish()
+            await bot.send_message(message.from_user.id, 'ID должен содержать только цифры!\n'
+                                                         f'Вы ввели следующий ID: {str_user_id}\n'
+                                                         f'Попробуйте еще раз',
+                                   reply_markup=admin_panel_keyboard_back_to_main_menu)
