@@ -3,10 +3,13 @@ from config.bot_config import dp, bot
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from keyboards.admin_panel_keyboard_back_to_main_menu import admin_panel_keyboard_back_to_main_menu
+from db_handler.user_role.create_content_manager import create_content_manager
+from db_handler.user_role.check_user_role import check_db_user_role
 
 
 class FSM_create_user_role_content_manager(StatesGroup):
     user_id = State()
+    user_name = State()
 
 
 @dp.callback_query_handler(text='take_user_role_content_manager', state=None)
@@ -20,12 +23,28 @@ async def load_user_role_content_manager(callback_query: types.CallbackQuery):
 
 @dp.message_handler(state=FSM_create_user_role_content_manager)
 async def load_user_id(message: types.Message, state: FSMContext):
-    async with state.proxy() as data:
-        data['user_id'] = message.text
-        str_user_id = data['user_id']
+    try:
+        check = await check_db_user_role(user_id=int(message.text))
 
-        try:
-            int_user_id = int(str_user_id)
+        if check == 'admin':
+            await state.finish()
+            await bot.send_message(message.from_user.id, f'Данный пользователь уже есть в базе данных\n'
+                                                         f'Его роль - Администратор\n'
+                                                         f'ID пользователя: {message.text}\n'
+                                                         f'Попробуйте еще раз',
+                                   reply_markup=admin_panel_keyboard_back_to_main_menu)
+        elif check == 'content_manager':
+            await state.finish()
+            await bot.send_message(message.from_user.id, f'Данный пользователь уже есть в базе данных\n'
+                                                         f'Его роль - Контент менеджер\n'
+                                                         f'ID пользователя: {message.text}\n'
+                                                         f'Попробуйте еще раз',
+                                   reply_markup=admin_panel_keyboard_back_to_main_menu)
+        else:
+            async with state.proxy() as data:
+                data['user_id'] = message.text
+                str_user_id = data['user_id']
+                int_user_id = int(str_user_id)
 
             if int_user_id < 0:
                 await state.finish()
@@ -34,12 +53,35 @@ async def load_user_id(message: types.Message, state: FSMContext):
                                                              f'Попробуйте еще раз',
                                        reply_markup=admin_panel_keyboard_back_to_main_menu)
             else:
-                await state.finish()
-                await bot.send_message(message.from_user.id, f'Контент менеджер с ID {str_user_id} успешно добавен',
+                await FSM_create_user_role_content_manager.next()
+                await bot.send_message(message.from_user.id, f'Контент менеджер\n'
+                                                             f'ID пользователя: {str_user_id}\n'
+                                                             f'Отправьте имя пользователя',
                                        reply_markup = admin_panel_keyboard_back_to_main_menu)
-        except ValueError:
-            await state.finish()
-            await bot.send_message(message.from_user.id, 'ID должен содержать только цифры!\n'
-                                                         f'Вы ввели следующий ID: {str_user_id}\n'
-                                                         f'Попробуйте еще раз',
-                                   reply_markup=admin_panel_keyboard_back_to_main_menu)
+    except ValueError:
+        await state.finish()
+        await bot.send_message(message.from_user.id, 'ID должен содержать только цифры!\n'
+                                                     f'Вы ввели следующий ID: {str_user_id}\n'
+                                                     f'Попробуйте еще раз',
+                               reply_markup=admin_panel_keyboard_back_to_main_menu)
+
+
+@dp.message_handler(state=FSM_create_user_role_content_manager)
+async def load_user_name(message: types.Message, state: FSMContext):
+        async with state.proxy() as data:
+            res = message.text.isdigit()
+            int_data_user_id = int(data['user_id'])
+
+            if res:
+                await state.finish()
+                await bot.send_message(message.from_user.id, f'Вы прислали не строку!\n'
+                                                             f'ID пользователя: {int_data_user_id}\n'
+                                                             f'Попробуйте еще раз',
+                                       reply_markup=admin_panel_keyboard_back_to_main_menu)
+            else:
+                data['user_name'] = message.text
+                await create_content_manager(user_id=int_data_user_id, user_name=data['user_name'])
+                await bot.send_message(message.from_user.id, f'Контент менеджер успешно добавлен\n'
+                                                             f'ID пользователя: {int_data_user_id}\n'
+                                                             f'Имя пользователя: {data["user_name"]}',
+                                       reply_markup=admin_panel_keyboard_back_to_main_menu)
