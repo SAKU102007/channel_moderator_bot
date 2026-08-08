@@ -61,7 +61,7 @@ async def load_user_id(message: types.Message, state: FSMContext):
     except ValueError:
         await state.finish()
         await bot.send_message(message.from_user.id, 'ID должен содержать только цифры!\n'
-                                                     f'Вы ввели следующий ID: {str_user_id}\n'
+                                                     f'Вы ввели следующий ID: {message.text}\n'
                                                      f'Попробуйте еще раз',
                                reply_markup=admin_panel_keyboard_back_to_main_menu)
 
