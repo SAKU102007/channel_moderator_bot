@@ -22,6 +22,8 @@ from handlers.admin_panel.delete_post.delete_post import *
 from handlers.admin_panel.delete_post.states_delete_post.post_id import *
 from handlers.admin_panel.publish_post.publish_post import *
 from handlers.admin_panel.publish_post.states_publish_post.post_id import *
+from handlers.admin_panel.check_post.check_post import *
+from handlers.admin_panel.check_post.states_check_post.post_id import *
 
 
 if __name__ == '__main__':
