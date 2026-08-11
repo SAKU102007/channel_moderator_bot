@@ -18,6 +18,8 @@ from handlers.admin_panel.change_post.states_change_post.post_name import *
 from handlers.admin_panel.change_post.states_change_post.post_description import *
 from handlers.admin_panel.change_post.states_change_post.post_tag import *
 from handlers.admin_panel.change_post.states_change_post.post_image import *
+from handlers.admin_panel.delete_post.delete_post import *
+from handlers.admin_panel.delete_post.states_delete_post.post_id import *
 
 
 if __name__ == '__main__':
