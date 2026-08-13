@@ -40,12 +40,12 @@
 ```text
 channel_moderator_bot/
 │
-├── main.py                           # Основной файл запуска бота
-├── .env                              # Файл с настройками (создается самостоятельно)
+├── main.py                                         # Основной файл запуска бота
+├── .env                                            # Файл с настройками (создается самостоятельно)
 │
-├── config/                           # Настройки и загрузка переменных окружения
+├── config/                                         # Настройки и загрузка переменных окружения
 │   └── bot_config.py
-├── db_handler/                       # Работа с БД PostgreSQL (посты, роли пользователей)
+├── db_handler/                                     # Работа с БД PostgreSQL (посты, роли пользователей)
 │   ├── change_post
 │   │   ├── change_post.py
 │   │   └── get_post_name.py
@@ -61,7 +61,7 @@ channel_moderator_bot/
 │       ├── create_admin.py
 │       ├── create_content_manager.py
 │       └── delete_user_role.py
-├── handlers/                         # Обработчики (админ-панель, FSM для создания постов)
+├── handlers/                                       # Обработчики (админ-панель, FSM для создания постов)
 │   ├── admin_panel
 │   │   ├── change_post
 │   │   │   ├── get_post.py
@@ -101,17 +101,17 @@ channel_moderator_bot/
 │   │           └── post_id.py
 │   └── start
 │       └── start.py
- keyboards/                        # Файлы для создания Reply и Inline клавиатур
+ keyboards/                                         # Файлы для создания Reply и Inline клавиатур
 │   ├── admin_panel_keyboard_back_to_main_menu.py
 │   ├── admin_panel_keyboard_main_menu.py
 │   ├── admin_panel_keyboard_take_user_role.py
 │   └── content_manager_keyboard_main_menu.py
-└── middlewares/                      # Middleware (в т.ч. система троттлинга)
+└── middlewares/                                    # Middleware (в т.ч. система троттлинга)
 │   └── trottling
 │       ├── rate_limit
 │       │   └── rate_limit.py
 │       └── trottling.py
-└── pip_requirements.txt              # Список зависимостей
+└── pip_requirements.txt                            # Список зависимостей
 ```
 
 ---
