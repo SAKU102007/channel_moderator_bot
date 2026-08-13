@@ -161,7 +161,7 @@ pip <version> from <path> (python 3.10)
 ### 1. Клонировать репозиторий
 
 ```bash
-git clone <ссылка_на_ваш_репозиторий>
+git clone https://github.com/SAKU102007/channel_moderator_bot.git
 ```
 или распакуйте архив проекта.
 
