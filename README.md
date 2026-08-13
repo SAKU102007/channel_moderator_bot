@@ -40,15 +40,78 @@
 ```text
 channel_moderator_bot/
 │
-├── main.py                   # Основной файл запуска бота
-├── pip_requirements.txt      # Список зависимостей
-├── .env                      # Файл с настройками (создается самостоятельно)
+├── main.py                           # Основной файл запуска бота
+├── .env                              # Файл с настройками (создается самостоятельно)
 │
-├── config/                   # Настройки и загрузка переменных окружения
-├── db_handler/               # Работа с БД PostgreSQL (посты, роли пользователей)
-├── handlers/                 # Обработчики (админ-панель, FSM для создания постов)
-├── keyboards/                # Файлы для создания Reply и Inline клавиатур
-└── middlewares/              # Middleware (в т.ч. система троттлинга)
+├── config/                           # Настройки и загрузка переменных окружения
+│   └── bot_config.py
+├── db_handler/                       # Работа с БД PostgreSQL (посты, роли пользователей)
+│   ├── change_post
+│   │   ├── change_post.py
+│   │   └── get_post_name.py
+│   ├── create_post
+│   │   ├── check_user_name.py
+│   │   └── create_post.py
+│   ├── delete_post
+│   │   └── delete_post.py
+│   ├── get_post
+│   │   └── get_post.py
+│   └── user_role
+│       ├── check_user_role.py
+│       ├── create_admin.py
+│       ├── create_content_manager.py
+│       └── delete_user_role.py
+├── handlers/                         # Обработчики (админ-панель, FSM для создания постов)
+│   ├── admin_panel
+│   │   ├── change_post
+│   │   │   ├── get_post.py
+│   │   │   └── states_change_post
+│   │   │       ├── post_description.py
+│   │   │       ├── post_id.py
+│   │   │       ├── post_image.py
+│   │   │       ├── post_name.py
+│   │   │       └── post_tag.py
+│   │   ├── check_post
+│   │   │   ├── check_post.py
+│   │   │   └── states_check_post
+│   │   │       └── post_id.py
+│   │   ├── create_post
+│   │   │   ├── create_post.py
+│   │   │   └── states_post
+│   │   │       ├── post_description.py
+│   │   │       ├── post_image.py
+│   │   │       ├── post_name.py
+│   │   │       └── post_tag.py
+│   │   ├── create_user_role
+│   │   │   ├── admin
+│   │   │   │   └── admin.py
+│   │   │   ├── content_manager
+│   │   │   │   └── content_manager.py
+│   │   │   └── create_user_role.py
+│   │   ├── delete_post
+│   │   │   ├── delete_post.py
+│   │   │   └── states_delete_post
+│   │   │       └── post_id.py
+│   │   ├── delete_user_role
+│   │   │   └── delete_user_role.py
+│   │   ├── main_menu.py
+│   │   └── publish_post
+│   │       ├── publish_post.py
+│   │       └── states_publish_post
+│   │           └── post_id.py
+│   └── start
+│       └── start.py
+ keyboards/                        # Файлы для создания Reply и Inline клавиатур
+│   ├── admin_panel_keyboard_back_to_main_menu.py
+│   ├── admin_panel_keyboard_main_menu.py
+│   ├── admin_panel_keyboard_take_user_role.py
+│   └── content_manager_keyboard_main_menu.py
+└── middlewares/                      # Middleware (в т.ч. система троттлинга)
+│   └── trottling
+│       ├── rate_limit
+│       │   └── rate_limit.py
+│       └── trottling.py
+└── pip_requirements.txt              # Список зависимостей
 ```
 
 ---
