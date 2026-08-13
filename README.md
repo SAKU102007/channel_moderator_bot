@@ -30,6 +30,7 @@
 
 - Python 3.10
 - aiogram 2.25.1
+- asyncpg
 - python-dotenv
 - PostgreSQL
 
