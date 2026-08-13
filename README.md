@@ -250,10 +250,11 @@ Use this token to access the HTTP API:
 
 # Создание файла .env
 
-В корневой папке проекта создайте файл
+В папке сonfig создайте файл .env
 
 ```
-.env
+touch config/.env
+open -e config/.env
 ```
 
 В этот файл необходимо прописать токен вашего бота и данные для подключения к базе данных PostgreSQL.
