@@ -1,5 +1,5 @@
 from aiogram import types
-from config.bot_config import dp, bot, ADMIN
+from config.bot_config import dp, bot
 from keyboards.admin_panel_keyboard_main_menu import admin_panel_keyboard_main_menu
 from keyboards.content_manager_keyboard_main_menu import content_manager_keyboard_main_menu
 from db_handler.user_role.check_user_role import check_db_user_role
