@@ -298,8 +298,8 @@ open -e config/.env
 ```env
 # Настройки Telegram Бота
 API_TOKEN='123456789:AAHXXXXXXXXXXXXXXXXXXXXXXXXXXXX'     # Токен от **@BotFather**
-ADMIN='1357899296'     # Значение от **@GetsMyIDBot**
-CHAT_ID='-1003927870507'     # Значение от **@GetsMyIDBot**
+ADMIN='12345678'     # Значение от **@GetsMyIDBot**
+CHAT_ID='-12345678'     # Значение от **@GetsMyIDBot**
 
 # Настройки подключения к PostgreSQL
 HOST=localhost
